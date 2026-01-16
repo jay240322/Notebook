@@ -1,0 +1,140 @@
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 4vh;
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2vh;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    height: 90vh;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.auth-logo {
+    font-size: 5vh;
+    margin-bottom: 1vh;
+    display: block;
+}
+
+.app-name {
+    font-size: 3.5vh;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 4vh;
+    letter-spacing: -0.5px;
+}
+
+.auth-header {
+    margin-bottom: 3vh;
+    color: #4a5568;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 2vh;
+    margin-bottom: 2vh;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 2vh;
+    outline: none;
+    transition: all 0.3s ease;
+    color: #4a5568;
+}
+
+.auth-input:focus {
+    border-color: #a3c4f3;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 2vh;
+    border-radius: 12px;
+    border: none;
+    background-color: #2d3748;
+    color: #fff;
+    font-size: 2vh;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 2vh;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 0 0 3vh;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.divider-text {
+    padding: 0 10px;
+    color: #a0aec0;
+    font-size: 1.8vh;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 1.6vh;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background-color: #fff;
+    color: #2d3748;
+    font-size: 2vh;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s;
+    margin-top: -10px;
+}
+
+.google-btn:hover {
+    background-color: #f7fafc;
+}
+
+.toggle-text {
+    font-size: 1.8vh;
+    color: #718096;
+}
+
+.auth-link {
+    color: #2b6cb0;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

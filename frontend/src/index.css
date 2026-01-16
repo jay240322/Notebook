@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-main: 'Outfit', sans-serif;
+  --bg-color: #eef2f5;
+  /* Soft Blue-Gray Light */
+  --text-color: #2d3748;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --icon-color: #4a5568;
+
+  /* Pastel Palette */
+  --note-1: #ffcfd2;
+  --note-2: #f1c0e8;
+  --note-3: #cfbaf0;
+  --note-4: #a3c4f3;
+  --note-5: #90dbf4;
+  --note-6: #8eecf5;
+  --note-7: #98f5e1;
+  --note-8: #b9fbc0;
+}
+
+[data-theme='dark'] {
+  --bg-color: #1a202c;
+  --text-color: #e2e8f0;
+  --glass-bg: rgba(26, 32, 44, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --icon-color: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Notes Grid Layout */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2vw;
+  padding: 3vh;
+  max-width: 90%;
+  margin: 0 auto;
+  grid-auto-flow: dense;
+}
+
+/* Dynamic Span Classes - Only apply on larger screens */
+@media (min-width: 768px) {
+  .note-span-2 {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .note-span-3 {
+    grid-column: span 3;
+  }
+}
