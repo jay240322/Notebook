@@ -80,12 +80,24 @@ body {
 /* Notes Grid Layout */
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* Reduced min-width */
   gap: 2vw;
   padding: 3vh;
-  max-width: 90%;
+  max-width: 95%;
+  /* Wider on small screens */
   margin: 0 auto;
   grid-auto-flow: dense;
+}
+
+@media (max-width: 768px) {
+  .notes-grid {
+    grid-template-columns: 1fr;
+    /* Single column on mobile */
+    gap: 1.5rem;
+    padding: 1rem;
+    max-width: 100%;
+  }
 }
 
 /* Dynamic Span Classes - Only apply on larger screens */

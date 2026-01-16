@@ -1,0 +1,97 @@
+/* Navbar Container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+    transition: padding 0.3s ease;
+}
+
+/* Logo Section */
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Profile Section */
+.navbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-name {
+    font-weight: 500;
+    color: var(--text-color);
+    white-space: nowrap;
+    /* Prevent name breaking */
+}
+
+/* Theme & Logout Buttons */
+.nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.logout-btn {
+    margin-left: 10px;
+    color: #e53e3e;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.8rem 1rem;
+        /* Reduce padding significantly */
+    }
+
+    .navbar-logo {
+        font-size: 1.2rem;
+        /* Smaller logo text */
+    }
+
+    .profile-name {
+        display: none;
+        /* Hide name on very small screens to save space, or just reduce size */
+    }
+
+    .navbar-profile {
+        gap: 0.5rem;
+        /* Closer buttons */
+    }
+
+    .nav-btn {
+        font-size: 1.1rem;
+        padding: 0.3rem;
+    }
+}
+
+/* Show name on medium screens but small */
+@media (max-width: 480px) {
+    .profile-name {
+        display: none;
+    }
+}
