@@ -26,6 +26,7 @@ Check out the live application here: **[https://notebook-j9y8.vercel.app](https:
 Follow these steps to set up the project locally:
 
 ### 1. Clone the repository
-```bash
+```
 git clone [https://github.com/jay240322/Notebook.git](https://github.com/jay240322/Notebook.git)
-cd Notebook '''
+cd Notebook
+---
