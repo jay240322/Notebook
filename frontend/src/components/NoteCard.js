@@ -1,70 +1,7 @@
 import React from 'react';
+import './NoteCard.css';
 
 const NoteCard = ({ note, onDelete, onEdit, onView }) => {
-    const styles = {
-        card: {
-            backgroundColor: note.color || '#fff',
-            borderRadius: '16px',
-            padding: '1.5rem',
-            marginBottom: '1.5rem',
-            boxShadow: 'var(--shadow-sm)',
-            transition: 'var(--transition)',
-            cursor: 'pointer',
-            position: 'relative',
-            overflow: 'hidden',
-            breakInside: 'avoid', /* For masonry layout */
-            animation: 'popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
-        },
-        date: {
-            fontSize: '0.75rem',
-            color: 'rgba(0,0,0,0.5)',
-            marginBottom: '0.5rem',
-            display: 'block',
-        },
-        title: {
-            fontSize: '1.25rem',
-            fontWeight: '600',
-            marginBottom: '0.75rem',
-            lineHeight: '1.3',
-            color: note.titleColor || 'inherit', // Use custom color
-        },
-        content: {
-            fontSize: '0.95rem',
-            lineHeight: '1.6',
-            color: 'rgba(0,0,0,0.8)',
-            whiteSpace: 'pre-wrap',
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-        },
-        actions: {
-            position: 'absolute',
-            top: '10px',
-            right: '10px',
-            display: 'flex',
-            gap: '8px',
-            opacity: 0,
-            transition: 'all 0.2s ease',
-        },
-        iconBtn: {
-            background: 'rgba(255,255,255,0.6)',
-            border: 'none',
-            borderRadius: '50%',
-            width: '32px',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-            transition: 'transform 0.2s',
-        }
-    };
-
-    // Hover effect
-    const [isHovered, setIsHovered] = React.useState(false);
 
     // Dynamic Width Logic
     const getSpanClass = () => {
@@ -76,23 +13,14 @@ const NoteCard = ({ note, onDelete, onEdit, onView }) => {
 
     return (
         <div
-            className={getSpanClass()}
-            style={{
-                ...styles.card,
-                transform: isHovered ? 'translateY(-5px)' : 'none',
-                boxShadow: isHovered ? 'var(--shadow-lg)' : 'var(--shadow-sm)',
-                marginBottom: 0, /* Grid handles gap */
-                height: '100%', /* Stretch to fill grid cell */
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            className={`note-card ${getSpanClass()}`}
+            style={{ backgroundColor: note.color || '#fff' }}
             onClick={() => onView(note)}
         >
-            <div style={{ ...styles.actions, opacity: isHovered ? 1 : 0 }}>
+            <div className="note-actions">
                 <button
-                    style={{ ...styles.iconBtn, color: '#2d3748' }}
+                    className="note-icon-btn"
+                    style={{ color: '#2d3748' }}
                     onClick={(e) => {
                         e.stopPropagation();
                         onEdit(note);
@@ -105,7 +33,8 @@ const NoteCard = ({ note, onDelete, onEdit, onView }) => {
                     </svg>
                 </button>
                 <button
-                    style={{ ...styles.iconBtn, color: '#e53e3e' }}
+                    className="note-icon-btn"
+                    style={{ color: '#e53e3e' }}
                     onClick={(e) => {
                         e.stopPropagation();
                         onDelete(note._id);
@@ -125,19 +54,13 @@ const NoteCard = ({ note, onDelete, onEdit, onView }) => {
                 <img
                     src={note.images[0]}
                     alt="attachment"
-                    style={{
-                        width: '100%',
-                        height: '15vh',
-                        objectFit: 'cover',
-                        borderRadius: '8px',
-                        marginBottom: '1vh'
-                    }}
+                    className="note-image"
                 />
             )}
 
-            <span style={styles.date}>{new Date(note.timestamp).toLocaleDateString()}</span>
-            <h3 style={styles.title}>{note.title}</h3>
-            <p style={styles.content}>{note.content}</p>
+            <span className="note-date">{new Date(note.timestamp).toLocaleDateString()}</span>
+            <h3 className="note-title" style={{ color: note.titleColor || 'inherit' }}>{note.title}</h3>
+            <p className="note-content">{note.content}</p>
         </div>
     );
 };
