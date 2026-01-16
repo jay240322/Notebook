@@ -10,6 +10,7 @@ import ViewNoteModal from './components/ViewNoteModal';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import DeleteConfirmationModal from './components/DeleteConfirmationModal';
+import LandingPage from './components/LandingPage';
 
 function Dashboard({ user, onLogout, theme, toggleTheme }) {
   const [notes, setNotes] = useState([]);
@@ -302,15 +303,19 @@ function App() {
       <div className="App">
         <Routes>
           <Route
+            path="/"
+            element={user ? <Navigate to="/dashboard" /> : <LandingPage />}
+          />
+          <Route
             path="/login"
-            element={!user ? <Login onLogin={handleUserLogin} onGoogleLogin={handleGoogleLogin} /> : <Navigate to="/" />}
+            element={!user ? <Login onLogin={handleUserLogin} onGoogleLogin={handleGoogleLogin} /> : <Navigate to="/dashboard" />}
           />
           <Route
             path="/signup"
-            element={!user ? <Signup onSignup={handleUserSignup} onGoogleLogin={handleGoogleLogin} /> : <Navigate to="/" />}
+            element={!user ? <Signup onSignup={handleUserSignup} onGoogleLogin={handleGoogleLogin} /> : <Navigate to="/dashboard" />}
           />
           <Route
-            path="/"
+            path="/dashboard"
             element={user ? <Dashboard user={user} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} /> : <Navigate to="/login" />}
           />
         </Routes>
