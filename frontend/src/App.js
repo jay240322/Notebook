@@ -15,9 +15,9 @@ import LandingPage from './components/LandingPage';
 // Helper to determine backend URL dynamically
 // This ensures it works on localhost AND when accessed via IP (mobile/other networks)
 const getBackendUrl = () => {
-  // 1. Production (Deployed) - Use the live Railway Backend
+  // 1. Production (Deployed) - Use the live Vercel Backend (Robust)
   if (process.env.NODE_ENV === 'production') {
-    return "https://notebook-production-84fc.up.railway.app";
+    return "https://notebook-ochre-beta.vercel.app";
   }
 
   // 2. Development (Local) - Dynamic Hostname for LAN/Localhost support
