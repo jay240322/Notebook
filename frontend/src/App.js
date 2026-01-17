@@ -12,6 +12,20 @@ import Signup from './components/Signup';
 import DeleteConfirmationModal from './components/DeleteConfirmationModal';
 import LandingPage from './components/LandingPage';
 
+// Helper to determine backend URL dynamically
+// This ensures it works on localhost AND when accessed via IP (mobile/other networks)
+const getBackendUrl = () => {
+  // 1. Production (Deployed) - Use the live Railway Backend
+  if (process.env.NODE_ENV === 'production') {
+    return "https://notebook-production-84fc.up.railway.app";
+  }
+
+  // 2. Development (Local) - Dynamic Hostname for LAN/Localhost support
+  const port = '5000';
+  const hostname = window.location.hostname;
+  return `http://${hostname}:${port}`;
+};
+
 function Dashboard({ user, onLogout, theme, toggleTheme }) {
   const [notes, setNotes] = useState([]);
 
@@ -28,7 +42,7 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
     const fetchNotes = async () => {
       if (user && user.uid) {
         try {
-          const baseUrl = process.env.REACT_APP_BACKEND_URL;
+          const baseUrl = getBackendUrl();
           // alert(`Attempting to fetch notes from: ${baseUrl}`); // Uncomment if needed, but let's rely on error first
 
           if (!baseUrl) {
@@ -67,6 +81,7 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
           }
         } catch (error) {
           console.error("Failed to fetch notes", error);
+          alert("Network Error: Could not connect to the server. Please check your internet connection or try reloading.");
         }
       }
     };
@@ -75,7 +90,7 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
 
   const addNote = async (note) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/notes/addnote?firebase_uid=${user.uid}`, {
+      const response = await fetch(`${getBackendUrl()}/api/notes/addnote?firebase_uid=${user.uid}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -97,7 +112,7 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
 
   const updateNote = async (updatedNote) => {
     try {
-      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/notes/updatenote/${updatedNote._id}`, {
+      await fetch(`${getBackendUrl()}/api/notes/updatenote/${updatedNote._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +148,7 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
     if (!noteToDelete) return;
 
     try {
-      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/notes/deletenote/${noteToDelete}`, {
+      await fetch(`${getBackendUrl()}/api/notes/deletenote/${noteToDelete}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -263,7 +278,7 @@ function App() {
       await updateProfile(userCredential.user, { displayName: name });
 
       // Save user to MongoDB
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/createuser`, {
+      const response = await fetch(`${getBackendUrl()}/api/auth/createuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -296,7 +311,7 @@ function App() {
       const user = result.user;
 
       // Sync with MongoDB
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google`, {
+      const response = await fetch(`${getBackendUrl()}/api/auth/google`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
