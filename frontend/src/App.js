@@ -53,7 +53,6 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
           }
         } catch (error) {
           console.error("Failed to fetch notes", error);
-          alert(`Fetch Error: ${error.message}\nURL: ${process.env.REACT_APP_BACKEND_URL}`);
         }
       }
     };
