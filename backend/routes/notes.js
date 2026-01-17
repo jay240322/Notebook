@@ -3,9 +3,9 @@ const router = express.Router();
 const Note = require('../models/Note');
 const User = require('../models/User');
 
-// Middleware to get user from firebase-uid header
 const getUser = async (req, res, next) => {
-    const firebaseUid = req.header('firebase-uid');
+    // Check header first, then query param
+    const firebaseUid = req.header('firebase-uid') || req.query.firebase_uid;
     if (!firebaseUid) {
         return res.status(401).json({ error: "Please authenticate using a valid token" });
     }

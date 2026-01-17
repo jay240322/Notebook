@@ -35,11 +35,11 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
             alert("Error: REACT_APP_BACKEND_URL is not set!");
           }
 
-          const response = await fetch(`${baseUrl}/api/notes/fetchallnotes`, {
+          const response = await fetch(`${baseUrl}/api/notes/fetchallnotes?firebase_uid=${user.uid}`, {
             method: 'GET',
             headers: {
-              'Content-Type': 'application/json',
-              'firebase-uid': user.uid
+              // 'Content-Type': 'application/json', // Not needed for GET
+              // 'firebase-uid': user.uid // Moved to query param to avoid preflight issues
             }
           });
 
