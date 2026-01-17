@@ -35,13 +35,27 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
             alert("Error: REACT_APP_BACKEND_URL is not set!");
           }
 
-          const response = await fetch(`${baseUrl}/api/notes/fetchallnotes?firebase_uid=${user.uid}`, {
-            method: 'GET',
-            headers: {
-              // 'Content-Type': 'application/json', // Not needed for GET
-              // 'firebase-uid': user.uid // Moved to query param to avoid preflight issues
-            }
+          let response = await fetch(`${baseUrl}/api/notes/fetchallnotes?firebase_uid=${user.uid}`, {
+            method: 'GET'
           });
+
+          // SELF-HEALING: If user not found (404), try to sync/create user in MongoDB and retry
+          if (response.status === 404 || response.status === 401) {
+            console.log("User missing in MongoDB. Attempting auto-sync...");
+            await fetch(`${baseUrl}/api/auth/google`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: user.displayName || user.email.split('@')[0],
+                email: user.email,
+                firebaseUid: user.uid
+              })
+            });
+            // Retry fetch
+            response = await fetch(`${baseUrl}/api/notes/fetchallnotes?firebase_uid=${user.uid}`, {
+              method: 'GET'
+            });
+          }
 
           if (!response.ok) {
             throw new Error(`Server returned ${response.status} ${response.statusText}`);
