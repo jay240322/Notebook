@@ -7,7 +7,10 @@ connectToMongo();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors()); // Allow all origins to fix "Failed to fetch" on mobile
+app.use(cors({
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'firebase-uid', 'Authorization']
+}));
 
 app.use(express.json());
 
