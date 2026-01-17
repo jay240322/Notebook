@@ -61,18 +61,23 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
 
   const addNote = async (note) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/notes/addnote`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/notes/addnote?firebase_uid=${user.uid}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'firebase-uid': user.uid
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(note)
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to add note');
+      }
+
       const noteData = await response.json();
       setNotes([noteData, ...notes]);
     } catch (error) {
       console.error("Error adding note", error);
+      alert("Error saving note: " + error.message);
     }
   };
 
