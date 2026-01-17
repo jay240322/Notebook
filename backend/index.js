@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Backend listening at http://0.0.0.0:${port}`)
-})
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Backend listening at http://0.0.0.0:${port}`)
+  })
+}
+
+module.exports = app;

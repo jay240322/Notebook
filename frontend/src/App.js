@@ -28,19 +28,32 @@ function Dashboard({ user, onLogout, theme, toggleTheme }) {
     const fetchNotes = async () => {
       if (user && user.uid) {
         try {
-          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/notes/fetchallnotes`, {
+          const baseUrl = process.env.REACT_APP_BACKEND_URL;
+          // alert(`Attempting to fetch notes from: ${baseUrl}`); // Uncomment if needed, but let's rely on error first
+
+          if (!baseUrl) {
+            alert("Error: REACT_APP_BACKEND_URL is not set!");
+          }
+
+          const response = await fetch(`${baseUrl}/api/notes/fetchallnotes`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'firebase-uid': user.uid
             }
           });
+
+          if (!response.ok) {
+            throw new Error(`Server returned ${response.status} ${response.statusText}`);
+          }
+
           const json = await response.json();
           if (Array.isArray(json)) {
             setNotes(json);
           }
         } catch (error) {
           console.error("Failed to fetch notes", error);
+          alert(`Fetch Error: ${error.message}\nURL: ${process.env.REACT_APP_BACKEND_URL}`);
         }
       }
     };
