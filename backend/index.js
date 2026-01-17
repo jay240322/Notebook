@@ -26,7 +26,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-if (process.env.NODE_ENV !== 'production') {
+// Fix for Railway: Always listen if not imported as a module (e.g. "node index.js")
+// OR if specifically running in a production server environment like Railway
+if (require.main === module || process.env.NODE_ENV === 'production') {
   app.listen(port, '0.0.0.0', () => {
     console.log(`Backend listening at http://0.0.0.0:${port}`)
   })
