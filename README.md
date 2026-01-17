@@ -3,6 +3,7 @@ cat << 'EOF' > README.md
 
 A full-stack Notebook application built with the **MERN stack** (MongoDB, Express, React, Node.js) and **Firebase Authentication**.
 
+(Highly recommended: use Vercel for frontend and backend deployment)
 ## 🚀 Live Demo
 
 Check out the live application here: **[https://notebook-j9y8.vercel.app](https://notebook-j9y8.vercel.app)**
