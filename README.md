@@ -1,4 +1,3 @@
-cat << 'EOF' > README.md
 # Notebook
 
 A full-stack Notebook application built with the **MERN stack** (MongoDB, Express, React, Node.js) and **Firebase Authentication**.
